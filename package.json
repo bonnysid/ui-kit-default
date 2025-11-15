@@ -1,7 +1,7 @@
 {
   "name": "@devbonnysid/ui-kit-default",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -21,7 +21,7 @@
     "i18n:status": "i18next-cli status",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "publish": "npm publish --access=public"
   },
   "dependencies": {
