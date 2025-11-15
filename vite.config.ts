@@ -55,6 +55,12 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'ui-kit-default.css';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
       },
     },
   },
