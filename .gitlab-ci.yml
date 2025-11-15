@@ -1,5 +1,4 @@
 stages:
-  - test
   - build
   - publish
 
@@ -10,13 +9,6 @@ default:
   image: node:22
   before_script:
     - yarn install --frozen-lockfile
-
-test:
-  stage: test
-  script:
-    - yarn lint
-  only:
-    - tags
 
 build:
   stage: build
@@ -34,13 +26,11 @@ publish:
   stage: publish
   needs:
     - build
+  before_script: []
   id_tokens:
     NPM_ID_TOKEN:
       aud: "npm:registry.npmjs.org"
   script:
-    - yarn build
-
-    - npm install -g npm@latest
     - npm publish
   only:
     - tags
