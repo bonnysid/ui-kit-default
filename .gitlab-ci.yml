@@ -31,14 +31,8 @@ publish:
     NPM_ID_TOKEN:
       aud: "npm:registry.npmjs.org"
   script:
-    # 1) обновляем npm до свежего
     - npm install -g npm@latest
-    - npm -v
-
-    # 2) проверяем, что GitLab реально выдал OIDC-токен для npm
-    - 'if [ -z "$NPM_ID_TOKEN" ]; then echo "NPM_ID_TOKEN is EMPTY — OIDC не выдался"; exit 1; else echo "NPM_ID_TOKEN is present"; fi'
-
-    # 3) публикация с provenance (триггерит trusted publisher)
-    - NPM_CONFIG_PROVENANCE=true npm publish --access public
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+    - npm publish --access public
   only:
     - tags
