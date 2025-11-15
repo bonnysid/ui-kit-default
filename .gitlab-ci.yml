@@ -6,7 +6,7 @@ variables:
   NODE_VERSION: '22'
 
 default:
-  image: node:22
+  image: node:${NODE_VERSION}
   before_script:
     - yarn install --frozen-lockfile
 
@@ -31,6 +31,7 @@ publish:
     NPM_ID_TOKEN:
       aud: "npm:registry.npmjs.org"
   script:
-    - npm publish
+    - npm install -g npm@latest
+    - npm publish --provenance --access public
   only:
     - tags
