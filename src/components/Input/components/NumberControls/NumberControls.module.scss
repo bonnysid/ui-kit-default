@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--input-controller-border-color);
+  height: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background-color: var(--input-controller-bg);
+  height: 100%;
+}
+
+.icon {
+  color: var(--color-icon-primary);
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  min-height: 1px;
+  background-color: var(--input-controller-border-color);
+}

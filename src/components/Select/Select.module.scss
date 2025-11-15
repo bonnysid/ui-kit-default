@@ -1,0 +1,123 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+
+  &.large {
+    --select-control-height: 40px;
+    --select-control-padding: 8px 12px;
+  }
+
+  &.medium {
+    --select-control-height: 32px;
+    --select-control-padding: 4px 8px;
+  }
+
+  &-control {
+    --select-control-bg: var(--color-bg-secondary);
+    --select-control-border-color: var(--color-border-primary);
+
+    &.isError {
+      --select-control-border-color: var(--color-error-primary);
+    }
+
+    &:hover {
+      --select-control-border-color: var(--color-border-secondary);
+    }
+
+    &:active {
+      --select-control-border-color: var(--color-border-tertiary);
+    }
+
+    &:disabled {
+      --select-control-bg: var(--color-hover-secondary);
+      --select-control-border-color: var(--color-border-primary);
+      --select-control-text-color: var(--color-text-secondary);
+      --select-control-icon-opacity: 0.5;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    width: 100%;
+    background-color: var(--select-control-bg);
+    border: 1px solid var(--select-control-border-color);
+    height: var(--select-control-height);
+    padding: var(--select-control-padding);
+    border-radius: var(--RoundingM);
+    transition: background-color .3s, border-color .3s;
+
+    &-wrapper {
+      position: relative;
+    }
+
+    &-content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    &-icon {
+      color: var(--color-icon-primary);
+      opacity: var(--select-control-icon-opacity, 1);
+      transition: opacity .3s, transform .2s;
+
+      &.isOpened {
+        transform: rotate(180deg);
+      }
+    }
+
+    &-loader {
+      color: var(--color-icon-primary);
+    }
+  }
+
+  &-dropdown {
+    border-radius: 6px;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+  }
+
+  &-value {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    overflow: hidden;
+
+    &-item {
+      color: var(--color-text-tooltip) !important;
+    }
+
+    &-counter {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      &-text {
+        display: flex;
+        color: var(--color-text-info);
+        font: var(--font-title-r-14);
+        transition: opacity .2s;
+
+        &.disabled {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  &-placeholder {
+    color: var(--color-text-tertiary);
+    font: var(--font-title-r-14);
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

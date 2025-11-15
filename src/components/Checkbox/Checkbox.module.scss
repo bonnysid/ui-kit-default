@@ -1,0 +1,121 @@
+.wrapper {
+  --checkbox-width: 24px;
+  --checkbox-padding: 4px;
+  --checkbox-bg: var(--color-button-normal-secondary);
+  --checkbox-border: 1px solid var(--color-border-primary);
+
+  &.isActive {
+    --checkbox-bg: var(--color-button-normal-primary);
+    --checkbox-border: 1px solid var(--color-button-normal-primary);
+  }
+
+  &.LARGE {
+    --checkbox-padding: 2px;
+    --checkbox-icon-width: 20px;
+  }
+
+  &.MEDIUM {
+    --checkbox-padding: 4px;
+    --checkbox-icon-width: 16px;
+  }
+
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity .2s;
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &.isError {
+    --checkbox-bg: var(--color-button-normal-secondary);
+    --checkbox-border: 1px solid var(--color-error-secondary);
+  }
+
+  &:hover {
+    --checkbox-bg: var(--color-button-hover-secondary);
+    --checkbox-border: 1px solid var(--color-border-secondary);
+
+    &.isActive {
+      --checkbox-bg: var(--color-button-hover-primary);
+      --checkbox-border: 1px solid var(--color-button-hover-primary);
+    }
+  }
+
+  &:active {
+    --checkbox-bg: var(--color-button-pressed-secondary);
+    --checkbox-border: 1px solid var(--color-border-tertiary);
+
+    &.isActive {
+      --checkbox-bg: var(--color-button-pressed-primary);
+      --checkbox-border: 1px solid var(--color-button-pressed-primary);
+    }
+  }
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--checkbox-padding);
+  width: var(--checkbox-width);
+  height: var(--checkbox-width);
+  min-height: var(--checkbox-width);
+  min-width: var(--checkbox-width);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: var(--checkbox-border);
+  background-color: var(--checkbox-bg);
+  border-radius: var(--RoundingS);
+  transition: background-color .2s, border-color .2s;
+  position: relative;
+
+  &.isFocused {
+    outline: var(--outline-focus);
+  }
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  color: var(--color-icon-extra);
+  opacity: 0;
+  user-select: none;
+  user-focus: none;
+  pointer-events: none;
+
+  &.hasValue {
+    opacity: 1;
+  }
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.caption {
+  font: var(--font-title-r-14);
+  color: var(--color-text-primary);
+}
+
+.error {
+  font: var(--font-body-r-12);
+  color: var(--color-text-error);
+}
+
+.input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  font: var(--font-body-r-12);
+  color: var(--color-text-error);
+}
+
+.description {
+  font: var(--font-body-r-12);
+  color: var(--color-text-secondary);
+}

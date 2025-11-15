@@ -1,0 +1,23 @@
+.icon {
+  color: var(--color-icon-primary);
+  transition: color .2s, opacity .2s;
+  flex-shrink: 0;
+
+  &.isPlaceholder {
+    opacity: 0.5;
+  }
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-icon-secondary);
+      opacity: 1;
+    }
+
+    &.disabled {
+      color: var(--color-icon-primary);
+      opacity: 0.5;
+    }
+  }
+}

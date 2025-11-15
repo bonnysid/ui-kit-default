@@ -1,0 +1,26 @@
+:where(.popover) {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  z-index: 14;
+}
+
+.arrow {
+  --dd-arrow-size: 7px;
+
+  position: absolute;
+  z-index: -1;
+  display: block;
+  pointer-events: none;
+  background-color: inherit;
+  box-shadow: inherit;
+  transform: rotate(45deg);
+
+  &.top {
+    top: calc(-0.5 * var(--dd-arrow-size));
+  }
+
+  &.bottom {
+    bottom: calc(-0.5 * var(--dd-arrow-size));
+  }
+}

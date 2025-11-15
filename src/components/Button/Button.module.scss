@@ -1,0 +1,218 @@
+.button {
+  --button-width: fit-content;
+
+  &.fullWidth {
+    --button-width: 100%;
+  }
+
+  &.large {
+    --button-padding: 8px;
+    --button-height: 40px;
+  }
+
+  &.medium {
+    --button-padding: 4px 8px;
+    --button-height: 32px;
+  }
+
+  &.small {
+    --button-padding: 0;
+    --button-height: 24px;
+  }
+
+  &.primary {
+    --button-bg: var(--color-button-normal-primary);
+    --button-bg-hover: var(--color-button-hover-primary);
+    --button-bg-active: var(--color-button-pressed-primary);
+    --button-bg-disabled: var(--color-button-normal-primary);
+    --button-border: none;
+    --button-font: var(--font-title-sb-14);
+
+    --button-text-color: var(--color-text-extra);
+    --button-text-hover-color: var(--color-text-extra);
+    --button-text-active-color: var(--color-text-extra);
+    --button-text-disabled-color: var(--color-text-extra);
+
+    --button-icon-color: var(--color-icon-extra);
+    --button-icon-hover-color: var(--color-icon-extra);
+    --button-icon-active-color: var(--color-icon-extra);
+    --button-icon-disabled-color: var(--color-icon-extra);
+
+    --button-count-bg: var(--color-active-tertiary);
+    --button-count-color: var(--color-text-info);
+  }
+
+  &.secondary {
+    --button-bg: var(--color-button-normal-secondary);
+    --button-bg-hover: var(--color-button-hover-secondary);
+    --button-bg-active: var(--color-button-pressed-secondary);
+    --button-bg-disabled: var(--color-button-pressed-secondary);
+    --button-border: 1px solid var(--color-border-primary);
+    --button-font: var(--font-title-r-14);
+
+    --button-text-color: var(--color-text-primary);
+    --button-text-hover-color: var(--color-text-primary);
+    --button-text-active-color: var(--color-text-primary);
+    --button-text-disabled-color: var(--color-text-primary);
+
+    --button-icon-color: var(--color-icon-secondary);
+    --button-icon-hover-color: var(--color-icon-secondary);
+    --button-icon-active-color: var(--color-icon-secondary);
+    --button-icon-disabled-color: var(--color-icon-secondary);
+
+    --button-count-bg: var(--color-button-normal-primary);
+    --button-count-color: var(--color-text-extra);
+
+    &.iconOnly {
+      --button-icon-color: var(--color-icon-primary);
+      --button-icon-hover-color: var(--color-icon-secondary);
+      --button-icon-active-color: var(--color-icon-secondary);
+      --button-icon-disabled-color: var(--color-icon-primary);
+    }
+  }
+
+  &.tertiary {
+    --button-bg: transparent;
+    --button-bg-hover: var(--color-button-hover-secondary);
+    --button-bg-active: var(--color-button-pressed-secondary);
+    --button-bg-disabled: transparent;
+    --button-border: none;
+    --button-font: var(--font-title-r-14);
+
+    --button-text-color: var(--color-text-primary);
+    --button-text-hover-color: var(--color-text-primary);
+    --button-text-active-color: var(--color-text-primary);
+    --button-text-disabled-color: var(--color-text-primary);
+
+    --button-icon-color: var(--color-icon-secondary);
+    --button-icon-hover-color: var(--color-icon-secondary);
+    --button-icon-active-color: var(--color-icon-secondary);
+    --button-icon-disabled-color: var(--color-icon-secondary);
+
+    --button-count-bg: var(--color-button-normal-primary);
+    --button-count-color: var(--color-text-extra);
+
+    &.iconOnly {
+      --button-icon-color: var(--color-icon-primary);
+      --button-icon-hover-color: var(--color-icon-secondary);
+      --button-icon-active-color: var(--color-icon-secondary);
+      --button-icon-disabled-color: var(--color-icon-primary);
+    }
+  }
+
+  &.quaternary {
+    --button-bg: var(--color-button-normal-tertiary);
+    --button-bg-hover: var(--color-button-hover-tertiary);
+    --button-bg-active: var(--color-button-pressed-tertiary);
+    --button-bg-disabled: var(--color-button-normal-tertiary);
+    --button-border: none;
+    --button-font: var(--font-title-sb-14);
+
+    --button-text-color: var(--color-text-extra);
+    --button-text-hover-color: var(--color-text-extra);
+    --button-text-active-color: var(--color-text-extra);
+    --button-text-disabled-color: var(--color-text-extra);
+
+    --button-icon-color: var(--color-icon-extra);
+    --button-icon-hover-color: var(--color-icon-extra);
+    --button-icon-active-color: var(--color-icon-extra);
+    --button-icon-disabled-color: var(--color-icon-extra);
+
+    --button-count-bg: var(--color-bg-error);
+    --button-count-color: var(--color-text-error);
+  }
+
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--RoundingM);
+  padding: var(--button-padding);
+  background-color: var(--button-bg);
+  border: var(--button-border);
+  width: var(--button-width);
+  height: var(--button-height);
+  transition: background-color .2s, opacity .2s;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--button-bg-hover);
+
+    & .text {
+      color: var(--button-text-hover-color);
+    }
+
+    & .icon {
+      color: var(--button-icon-hover-color);
+    }
+  }
+
+  &:active, &.active {
+    background-color: var(--button-bg-active);
+
+    & .text {
+      color: var(--button-text-active-color);
+    }
+
+    & .icon {
+      color: var(--button-icon-active-color);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    background-color: var(--button-bg-disabled);
+
+    & .text {
+      color: var(--button-text-disabled-color);
+    }
+
+    & .icon {
+      color: var(--button-icon-disabled-color);
+    }
+  }
+
+  &.isLoading {
+    & .text, & .count, & .icon {
+      visibility: hidden;
+    }
+  }
+}
+
+.text {
+  font: var(--button-font);
+  color: var(--button-text-color);
+  padding: 0 4px;
+  transition: color .2s;
+}
+
+.icon {
+  color: var(--button-icon-color);
+  transition: color .2s;
+}
+
+.loader {
+  position: absolute;
+  left: calc(50% - 8px);
+  color: var(--button-icon-color);
+  transition: color .2s;
+}
+
+.count {
+  min-height: 16px;
+  min-width: 16px;
+  font: var(--font-title-sb-12);
+  border-radius: var(--RoundingXL);
+  background-color: var(--button-count-bg);
+  color: var(--button-count-color);
+  padding: 0 4px;
+}
+
+.tooltip-container {
+  width: fit-content;
+  height: fit-content;
+
+  &.fullWidth {
+    width: 100%;
+  }
+}

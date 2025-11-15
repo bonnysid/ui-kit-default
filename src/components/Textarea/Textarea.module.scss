@@ -1,0 +1,77 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.controller {
+  --textarea-controller-bg: var(--color-bg-secondary);
+  --textarea-controller-border-color: var(--color-border-primary);
+  --textarea-color: var(--color-text-primary);
+  --textarea-controller-padding: 8px 12px;
+
+  &:hover {
+    --textarea-controller-border-color: var(--color-border-secondary);
+  }
+
+  &:active {
+    --textarea-controller-border-color: var(--color-border-tertiary);
+  }
+
+  &:focus, &:active {
+    --textarea-controller-border-color: var(--color-border-tertiary);
+  }
+
+  &:disabled {
+    --textarea-controller-border-color: var(--color-border-primary);
+    --textarea-controller-bg: var(--color-bg-primary);
+  }
+
+  &.isError {
+    --textarea-controller-border-color: var(--color-error-primary);
+    --textarea-controller-border-color-hover: var(--color-error-primary);
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background: var(--textarea-controller-bg);
+    -webkit-box-shadow: 0 0 0 2000px var(--textarea-controller-bg) inset;
+    caret-color: var(--textarea-color);
+    -webkit-text-fill-color: var(--textarea-color);
+    color: var(--textarea-color);
+  }
+
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  resize: none;
+  height: 80px;
+  gap: 4px;
+  border-radius: var(--RoundingM);
+  background-color: var(--textarea-controller-bg);
+  border: 1px solid var(--textarea-controller-border-color);
+  padding: var(--textarea-controller-padding);
+  transition: background-color .2s, border-color .2s, opacity .2s;
+  font: var(--font-title-r-14);
+  color: var(--textarea-color);
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  &.isResizeableVertical {
+    resize: vertical;
+  }
+
+  &.isResizeableHorizontal {
+    resize: horizontal;
+  }
+
+  &.isResizeableBoth {
+    resize: both;
+  }
+}

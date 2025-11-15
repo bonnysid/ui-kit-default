@@ -1,0 +1,17 @@
+.icon {
+  color: var(--color-icon-primary);
+}
+
+.hint {
+  color: var(--color-icon-primary);
+  cursor: help;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font: var(--font-title-r-14);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+
+  @-moz-document url-prefix() {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-secondary) var(--color-bg-primary);
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: var(--color-bg-primary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--color-border-secondary);
+  }
+}
+
+ul {
+  padding-left: 24px;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font: var(--font-body-r-14);
+  color: var(--color-text-primary);
+
+  @media (max-width: 1024px) {
+    min-width: 1024px;
+  }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+#toast-root {
+  position: relative;
+  z-index: 10000;
+  & > div > div > div {
+    z-index: 10000;
+  }
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+:where(button, [role="button"], input, select, textarea, a):focus-visible {
+  outline: var(--outline-focus);
+}
