@@ -32,6 +32,6 @@ publish:
       aud: "npm:registry.npmjs.org"
   script:
     - npm install -g npm@latest
-    - npm publish --provenance --access public
+    - npm publish --access public
   only:
     - tags
