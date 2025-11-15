@@ -32,7 +32,6 @@ publish:
       aud: "npm:registry.npmjs.org"
   script:
     - npm install -g npm@latest
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
     - npm publish --access public
   only:
     - tags
