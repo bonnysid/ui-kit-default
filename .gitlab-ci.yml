@@ -9,7 +9,6 @@ variables:
 default:
   image: node:20
   before_script:
-    - npm install -g yarn
     - yarn install --frozen-lockfile
 
 test:
