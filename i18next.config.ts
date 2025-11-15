@@ -5,13 +5,13 @@ export default defineConfig({
   extract: {
     input: ['src/**/*.{js,jsx,ts,tsx}'],
     output: 'src/locales/{{language}}/{{namespace}}.json',
-    defaultNS: 'common',
+    defaultNS: 'ui-kit',
     primaryLanguage: 'ru',
     secondaryLanguages: ['en'],
     ignore: ['node_modules/**'],
   },
   types: {
-    input: ['src/locales/en/*.json'],
+    input: ['src/locales/en/ui-kit.json'],
     output: 'src/types/i18next.d.ts',
   },
 });

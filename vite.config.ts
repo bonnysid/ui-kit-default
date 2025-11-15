@@ -8,6 +8,7 @@ import react from '@vitejs/plugin-react';
 import { playwright } from '@vitest/browser-playwright';
 import path from 'path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import svgr from 'vite-plugin-svgr';
 
 const dirname =
@@ -15,15 +16,46 @@ const dirname =
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [
+    react(),
+    svgr(),
+    dts({
+      include: ['src'],
+      exclude: [
+        'src/**/*.stories.ts',
+        'src/**/*.stories.tsx',
+        'src/**/*.test.ts',
+        'src/**/*.test.tsx',
+        'src/scripts',
+      ],
+      outDir: 'dist',
+    }),
+  ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(dirname, 'src'),
     },
   },
   css: {
     modules: {
       generateScopedName: '[name]__[local]___[hash:base64:5]',
+    },
+  },
+  build: {
+    lib: {
+      entry: path.resolve(dirname, 'src/index.ts'),
+      name: '@devbonnysid/ui-kit-default',
+      formats: ['es', 'cjs'],
+      fileName: (format) => `index.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
     },
   },
   test: {

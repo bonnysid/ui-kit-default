@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -24,8 +20,13 @@
     "noEmit": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist"
   },
+  "include": ["src"],
+  "exclude": ["**/*.stories.ts", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

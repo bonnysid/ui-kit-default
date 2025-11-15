@@ -3,9 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "generate:icons": "npx tsx ./src/scripts/generateIconTypes.ts",
     "i18n:extract": "i18next-cli extract",
@@ -13,6 +21,7 @@
     "i18n:status": "i18next-cli status",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "prepublish": "yarn build",
     "publish": "npm publish --access=public"
   },
   "dependencies": {
@@ -23,7 +32,8 @@
     "react-hook-form": "^7.65.0",
     "react-i18next": "^16.2.4",
     "react-router-dom": "^7.6.3",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "vite-plugin-dts": "^4.5.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.7",

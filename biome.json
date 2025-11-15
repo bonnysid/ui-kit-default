@@ -28,7 +28,11 @@
       "correctness": {
         "noUndeclaredVariables": "off",
         "useExhaustiveDependencies": "off",
-        "useUniqueElementIds": "off"
+        "useUniqueElementIds": "off",
+        "noUnusedImports": {
+          "level": "warn",
+          "fix": "safe"
+        }
       },
 
       "a11y": {

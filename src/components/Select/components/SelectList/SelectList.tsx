@@ -11,6 +11,8 @@ import {
   PopoverSharedProps,
 } from '@/components';
 import { SelectOption } from '@/components/Select/types';
+import { useUIKitTranslation } from '@/hooks';
+import { UI_KIT_NS } from '@/i18n';
 import { bindStyles } from '@/utils';
 import { SelectOptionItem, SelectOptionVariant } from '../SelectOptionItem';
 import styles from './SelectList.module.scss';
@@ -57,7 +59,7 @@ export const SelectList = <T,>({
   const showHeader = isWithSearch && hasOptions;
   const showSubHeader = isWithSelectAll && isMulti && hasOptions;
   const listRef = useRef<HTMLDivElement | null>(null);
-  const { t } = useTranslation();
+  const { t } = useUIKitTranslation();
 
   const filteredOptions = useMemo(() => {
     return (

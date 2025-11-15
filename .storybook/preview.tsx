@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 
 import '@/assets/global.module.scss';
 import '@/assets/variables.module.scss';
-import '@/utils/i18n';
+import i18n from './i18n';
 
 const THEME_STORAGE_KEY = 'sb-ui-theme';
 
@@ -35,10 +35,24 @@ const preview: Preview = {
         ],
       },
     },
+    locale: {
+      name: 'Locale',
+      description: 'Internationalization locale',
+      defaultValue: 'ru',
+      toolbar: {
+        icon: 'globe',
+        items: [
+          { value: 'ru', right: '🇷🇺', title: 'Русский' },
+          { value: 'en', right: '🇬🇧', title: 'English' },
+        ],
+      },
+    },
   },
 
   decorators: [
     (Story, { globals }) => {
+      const { locale } = globals;
+      i18n.changeLanguage(locale);
       // Определяем итоговую тему
       const resolved =
         globals.theme === 'system'
