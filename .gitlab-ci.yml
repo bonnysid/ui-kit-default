@@ -7,26 +7,27 @@ variables:
   NODE_VERSION: '20'
 
 default:
-  image: node:${NODE_VERSION}
+  image: node:20
+  before_script:
+    - npm install -g yarn
+    - yarn install --frozen-lockfile
 
 test:
   stage: test
   script:
-    - npm ci
-    - npm run lint
+    - yarn lint
   only:
     - tags
 
 build:
   stage: build
   script:
-    - npm ci
-    - npm run build
+    - yarn build
   artifacts:
     paths:
       - dist
       - package.json
-      - package-lock.json
+      - yarn.lock
   only:
     - tags
 
@@ -38,11 +39,9 @@ publish:
     NPM_ID_TOKEN:
       aud: "npm:registry.npmjs.org"
   script:
+    - yarn build
+
     - npm install -g npm@latest
-
-    - npm ci
-    - npm run build --if-present
-
     - npm publish
   only:
     - tags
