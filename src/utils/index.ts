@@ -6,6 +6,7 @@ export * from './convertThousands';
 export * from './downloadBlob';
 export * from './formatNumber';
 export * from './getPageItems';
+export * from './getTheme';
 export * from './insertIf';
 export * from './isExternalLink';
 export * from './isUndefinedOrNull';
