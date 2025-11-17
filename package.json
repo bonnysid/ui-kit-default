@@ -1,7 +1,7 @@
 {
   "name": "@devbonnysid/ui-kit-default",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -13,9 +13,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
+      "require": "./dist/index.cjs.js",
+      "default": "./dist/index.es.js"
     },
-    "./ui-kit-default.css": "./dist/ui-kit-default.css"
+    "./styles.css": "./dist/styles.css"
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -38,8 +39,7 @@
     "i18n:types": "i18next-cli types",
     "i18n:status": "i18next-cli status",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "publish": "npm publish --access=public"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "classnames": "^2.5.1",

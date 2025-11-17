@@ -59,7 +59,7 @@ export default defineConfig({
           'react-dom': 'ReactDOM',
         },
         assetFileNames: () => {
-          return 'assets/[name][extname]';
+          return '[name][extname]';
         },
       },
     },
