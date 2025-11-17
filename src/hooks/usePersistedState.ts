@@ -48,6 +48,14 @@ export const usePersistedState = <T>({
     return typeof initialValue === 'function' ? (initialValue as () => T)() : initialValue;
   });
 
+  const setNextState = (next: T) => {
+    setState((prev) => {
+      const prevStr = JSON.stringify(prev);
+      const nextStr = JSON.stringify(next);
+      return prevStr === nextStr ? prev : next;
+    });
+  };
+
   useIsomorphicLayoutEffect(() => {
     const s = storageRef.current;
     if (!s) return;
@@ -79,11 +87,7 @@ export const usePersistedState = <T>({
       if (ce.detail?.key !== key) return;
       const next = ce.detail.value;
 
-      setState((prev) => {
-        const prevStr = JSON.stringify(prev);
-        const nextStr = JSON.stringify(next);
-        return prevStr === nextStr ? prev : next;
-      });
+      setNextState(next);
     };
 
     window.addEventListener(STORAGE_EVENT_NAME, handleCustom);
@@ -98,12 +102,24 @@ export const usePersistedState = <T>({
     if (!s) return;
     const fromStorage = safeParse<T>(s.getItem(key));
     if (fromStorage !== undefined) {
-      setState((prev) => {
-        const prevStr = JSON.stringify(prev);
-        const nextStr = JSON.stringify(fromStorage);
-        return prevStr === nextStr ? prev : fromStorage;
-      });
+      setNextState(fromStorage);
     }
+  }, [key]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key !== key) return;
+
+      const next = safeParse<T>(e.newValue);
+      if (next === undefined) return;
+
+      setNextState(next);
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, [key]);
 
   return [state, setState];
