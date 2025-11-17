@@ -70,14 +70,6 @@ body,
   z-index: 1;
 }
 
-#toast-root {
-  position: relative;
-  z-index: 10000;
-  & > div > div > div {
-    z-index: 10000;
-  }
-}
-
 input::-ms-clear {
   display: none;
 }

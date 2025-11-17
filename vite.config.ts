@@ -42,10 +42,13 @@ export default defineConfig({
     },
   },
   build: {
+    minify: true,
+    cssMinify: true,
     lib: {
       entry: path.resolve(dirname, 'src/index.ts'),
       name: '@devbonnysid/ui-kit-default',
       formats: ['es', 'cjs'],
+      cssFileName: 'styles',
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
@@ -55,11 +58,8 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'ui-kit-default.css';
-          }
-          return 'assets/[name]-[hash][extname]';
+        assetFileNames: () => {
+          return 'assets/[name][extname]';
         },
       },
     },

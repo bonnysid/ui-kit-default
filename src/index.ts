@@ -1,5 +1,5 @@
-import './assets/global.module.scss';
-import './assets/variables.module.scss';
+import './assets/global.scss';
+import './assets/variables.scss';
 
 export * from './components';
 export * from './hooks';
