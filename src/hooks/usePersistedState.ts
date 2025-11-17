@@ -22,6 +22,8 @@ const safeParse = <T>(value: string | null): T | undefined => {
   }
 };
 
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export const usePersistedState = <T>({
   key,
   initialValue,
@@ -46,7 +48,7 @@ export const usePersistedState = <T>({
     return typeof initialValue === 'function' ? (initialValue as () => T)() : initialValue;
   });
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const s = storageRef.current;
     if (!s) return;
 

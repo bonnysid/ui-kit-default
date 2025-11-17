@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { getTheme } from '@/utils';
 import { usePersistedState } from './usePersistedState';
 
@@ -11,6 +12,12 @@ export const useTheme = (props?: UseThemeProps) => {
     key: props?.storageKey || 'theme',
     initialValue: props?.initialTheme || getTheme(),
   });
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.setAttribute('data-theme', theme);
+    }
+  }, [theme]);
 
   return { theme, setTheme };
 };
