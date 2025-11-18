@@ -13,7 +13,7 @@ export type RequestOptions<D = unknown, P = Record<string, unknown>> = Omit<
 export class RestService {
   public readonly httpClient: AxiosInstance;
 
-  private constructor(config?: CreateAxiosDefaults) {
+  public constructor(config?: CreateAxiosDefaults) {
     this.httpClient = axios.create(config);
   }
 

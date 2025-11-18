@@ -6,7 +6,7 @@ type ClearProps = {
 export class StorageService {
   private storage: Storage;
 
-  constructor(storage: Storage = window.localStorage) {
+  public constructor(storage: Storage = window.localStorage) {
     this.storage = storage;
   }
 
