@@ -10,6 +10,7 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import svgr from 'vite-plugin-svgr';
+import packageJson from './package.json';
 
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
@@ -52,7 +53,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: Object.keys(packageJson.peerDependencies),
       output: {
         globals: {
           react: 'React',
