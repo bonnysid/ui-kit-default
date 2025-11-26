@@ -1,4 +1,4 @@
-const isExternalLink = (to: string) => {
+const checkIsExternalLink = (to: string) => {
   try {
     return Boolean(new URL(to));
   } catch (e) {
@@ -6,4 +6,4 @@ const isExternalLink = (to: string) => {
   }
 };
 
-export { isExternalLink };
+export { checkIsExternalLink };

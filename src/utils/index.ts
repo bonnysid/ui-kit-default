@@ -1,4 +1,5 @@
 export * from './bindStyles';
+export * from './checkIsExternalLink';
 export * from './clamp';
 export * from './computeCoordsFromPlacement';
 export * from './convertScientificNumberToString';
@@ -8,6 +9,5 @@ export * from './formatNumber';
 export * from './getPageItems';
 export * from './getTheme';
 export * from './insertIf';
-export * from './isExternalLink';
 export * from './isUndefinedOrNull';
 export * from './isUrl';
