@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 
-import '@/assets/global.module.scss';
-import '@/assets/variables.module.scss';
+import '@/assets/global.scss';
+import '@/assets/variables.scss';
 import i18n from './i18n';
 
 const THEME_STORAGE_KEY = 'sb-ui-theme';
