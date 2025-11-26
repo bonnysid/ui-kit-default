@@ -4,12 +4,14 @@ import { RegisterOptions } from 'react-hook-form/dist/types/validator';
 
 import { Input, InputProps } from './Input';
 
-type Props = Omit<InputProps, 'value'> & {
+type OwnProps = {
   name: string;
   rules?: RegisterOptions;
   clearErrorOnDisable?: boolean;
   onChangeValue?: (value: string) => void;
 };
+
+type Props = Omit<InputProps, keyof OwnProps> & OwnProps;
 
 export const FormInput: FC<Props> = ({
   name,
