@@ -93,7 +93,7 @@ export const Link: FC<LinkProps> = ({
       onClick={onLinkClick}
     >
       {children}
-      {withExternalIcon && <Icon type="open-new-window" />}
+      {withExternalIcon && <Icon size={16} type="open-new-window" />}
     </a>
   );
 };
