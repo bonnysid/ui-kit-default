@@ -10,7 +10,11 @@ export const uiKitResources = {
   ru: { [UI_KIT_NS]: ruUiKit },
 } as const;
 
+let externalI18n: I18nInstance | undefined;
+
 export const initUiKitI18n = (i18n: I18nInstance) => {
+  externalI18n = i18n;
+
   Object.entries(uiKitResources).forEach(([lng, resources]) => {
     const ns = UI_KIT_NS;
 
@@ -23,3 +27,5 @@ export const initUiKitI18n = (i18n: I18nInstance) => {
     );
   });
 };
+
+export const getUiKitI18n = () => externalI18n;
