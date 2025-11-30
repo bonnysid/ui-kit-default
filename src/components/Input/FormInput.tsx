@@ -1,7 +1,8 @@
 import { FC, useEffect, useRef } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import { RegisterOptions } from 'react-hook-form/dist/types/validator';
-import { useTranslation } from 'react-i18next';
+import { useUIKitTranslation } from '@/hooks';
+import Resources from '@/types/resources';
 import { Input, InputProps } from './Input';
 
 type OwnProps = {
@@ -26,7 +27,7 @@ export const FormInput: FC<Props> = ({
   const { control, clearErrors } = useFormContext();
   const { fieldState, field } = useController({ name, rules, control });
   const prevDisabled = useRef<boolean | undefined>(disabled);
-  const { t } = useTranslation();
+  const { t } = useUIKitTranslation();
   const errorKey = fieldState?.error?.message || errorText || '';
 
   const handleChange = (value: string) => {
@@ -47,7 +48,7 @@ export const FormInput: FC<Props> = ({
     <Input
       {...field}
       isError={Boolean(fieldState?.error) || isError}
-      errorText={t(errorKey)}
+      errorText={t(errorKey as keyof Resources['ui-kit'])}
       onChangeValue={handleChange}
       value={field.value}
       disabled={disabled}
