@@ -10,6 +10,7 @@
 
   &::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
   }
 
   &::-webkit-scrollbar-track {
@@ -59,10 +60,6 @@ body,
   width: 100%;
   font: var(--font-body-r-14);
   color: var(--color-text-primary);
-
-  @media (max-width: 1024px) {
-    min-width: 1024px;
-  }
 }
 
 #root {
