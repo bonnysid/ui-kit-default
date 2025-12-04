@@ -1,0 +1,47 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-primary);
+  gap: 8px;
+  min-height: 24px;
+
+  &.isEmptyContent {
+    cursor: default;
+  }
+}
+
+.icon {
+  transition: transform 0.2s ease-in-out;
+  color: var(--color-icon-primary);
+
+  &.isOpened {
+    transform: rotate(180deg);
+  }
+}
+
+.content {
+  margin-top: 16px;
+}
+
+.gridWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease-in-out;
+
+  > .content {
+    overflow: hidden;
+  }
+
+  &.isOpened {
+    grid-template-rows: 1fr;
+  }
+}
