@@ -17,7 +17,7 @@ type DefaultDivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDiv
 
 type OwnProps = PropsWithChildren<{
   header: ReactNode | string;
-  onHeaderClick?: (e: MouseEvent<HTMLDivElement>) => void;
+  onHeaderClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   contentClassName?: string;
   isEmptyContent?: boolean;
   isDefaultOpen?: boolean;
@@ -41,7 +41,7 @@ export const Accordion: FC<AccordionProps> = ({
   const isEmpty = isEmptyContent || !children;
   const accordionControls = useOpenState(isDefaultOpen);
 
-  const onClickHandler = (e: MouseEvent<HTMLDivElement>) => {
+  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     onHeaderClick?.(e);
     if (!isEmpty) {
       accordionControls.toggle();
@@ -50,13 +50,17 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <div className={cn(className, 'accordion')} {...restProps}>
-      <div className={cn('header', { isEmptyContent: isEmpty })} onClick={onClickHandler}>
+      <button
+        type="button"
+        className={cn('header', { isEmptyContent: isEmpty })}
+        onClick={onClickHandler}
+      >
         <div className={cn('header-left')}>{header}</div>
 
         {!isEmpty && !isWithoutArrow && (
           <Icon type="chevron" className={cn('icon', { isOpened: accordionControls.isOpen })} />
         )}
-      </div>
+      </button>
       <div className={cn('gridWrap', { isOpened: accordionControls.isOpen })}>
         <div
           className={cn('content', contentClassName, {

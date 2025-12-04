@@ -13,6 +13,9 @@
   color: var(--color-text-primary);
   gap: 8px;
   min-height: 24px;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
 
   &.isEmptyContent {
     cursor: default;
