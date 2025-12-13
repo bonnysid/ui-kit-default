@@ -1,5 +1,5 @@
 import { ComponentPropsWithRef, FC, MouseEvent, ReactNode, useMemo } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { IconSize, IconTypes, Loader } from '@/components';
 import { bindStyles, checkIsExternalLink, isUndefinedOrNull } from '@/utils';
 import styles from './Button.module.scss';
