@@ -1,8 +1,7 @@
-import { ComponentPropsWithRef, FC, ReactNode } from 'react';
-
+import { ComponentPropsWithRef, FC, MouseEvent, ReactNode, useMemo } from 'react';
+import { useNavigate } from 'react-router';
 import { IconSize, IconTypes, Loader } from '@/components';
-import { bindStyles, isUndefinedOrNull } from '@/utils';
-
+import { bindStyles, checkIsExternalLink, isUndefinedOrNull } from '@/utils';
 import styles from './Button.module.scss';
 import { ButtonAddition } from './ButtonAddition';
 
@@ -21,7 +20,7 @@ export enum ButtonSizes {
   SMALL = 'small',
 }
 
-export type ButtonProps = ComponentPropsWithRef<'button'> & {
+type OwnProps = {
   text?: ReactNode;
   hint?: string;
   count?: number;
@@ -32,7 +31,12 @@ export type ButtonProps = ComponentPropsWithRef<'button'> & {
   isFullWidth?: boolean;
   isLoading?: boolean;
   isActive?: boolean;
+  to?: string;
+  href?: string;
+  target?: string;
 };
+
+export type ButtonProps = Omit<ComponentPropsWithRef<'button'>, keyof OwnProps> & OwnProps;
 
 export const Button: FC<ButtonProps> = ({
   disabled,
@@ -51,8 +55,30 @@ export const Button: FC<ButtonProps> = ({
   isActive,
   hint,
   ref,
+  to,
+  href,
+  target = '_blank',
   ...restProps
 }) => {
+  const navigate = useNavigate();
+  const link = useMemo(() => to ?? href, [to, href]);
+
+  const isExternal = useMemo(() => {
+    return checkIsExternalLink(link || '');
+  }, [link]);
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    onClick?.(e);
+
+    if (link) {
+      if (isExternal) {
+        window.open(link, target);
+      } else {
+        navigate(link);
+      }
+    }
+  };
+
   return (
     <button
       ref={ref}
@@ -62,7 +88,7 @@ export const Button: FC<ButtonProps> = ({
         isLoading,
       })}
       disabled={isUndefinedOrNull(disabled) ? isLoading : disabled}
-      onClick={onClick}
+      onClick={handleClick}
       type={type}
       {...restProps}
     >
