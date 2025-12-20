@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/react-vite';
 import '@/assets/global.scss';
 import '@/assets/variables.scss';
 import i18n from './i18n';
+import { BrowserRouter } from 'react-router-dom';
 
 const THEME_STORAGE_KEY = 'sb-ui-theme';
 
@@ -82,7 +83,7 @@ const preview: Preview = {
       }
 
       // Тянем фон/цвет из твоих токенов, чтобы «канвас» выглядел как приложение
-      return <Story />;
+      return <BrowserRouter><Story /></BrowserRouter>;
     },
   ],
 
