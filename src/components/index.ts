@@ -8,6 +8,7 @@ export * from './Icon';
 export * from './Input';
 export * from './Link';
 export * from './Loader';
+export * from './Plug';
 export * from './Popover';
 export * from './Portal';
 export * from './Select';
