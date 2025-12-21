@@ -1,0 +1,16 @@
+.plug {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font: var(--font-title-sb-16);
+}
+
+.text {
+  font: var(--font-body-r-12);
+}
