@@ -11,3 +11,4 @@ export * from './getTheme';
 export * from './insertIf';
 export * from './isUndefinedOrNull';
 export * from './isUrl';
+export * from './mapToOption';

@@ -2,5 +2,10 @@
   "noOptions": "No options",
   "resetAll": "Reset all",
   "search": "Search",
-  "selectAll": "Select all"
+  "selectAll": "Select all",
+  "pagination": {
+    "itemsOnPage": "Items on page:",
+    "ofPages": "of pages:",
+    "currentItems": "Showing {{totalItems}} items from {{start}} to {{end}}"
+  }
 }

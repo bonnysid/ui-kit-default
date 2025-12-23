@@ -2,6 +2,11 @@
 interface Resources {
   "ui-kit": {
     "noOptions": "No options",
+    "pagination": {
+      "currentItems": "Showing {{totalItems}} items from {{start}} to {{end}}",
+      "itemsOnPage": "Items on page:",
+      "ofPages": "of pages:"
+    },
     "resetAll": "Reset all",
     "search": "Search",
     "selectAll": "Select all"

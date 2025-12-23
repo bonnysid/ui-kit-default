@@ -13,6 +13,7 @@ export * from './Popover';
 export * from './Portal';
 export * from './Select';
 export * from './Tab';
+export * from './Table';
 export * from './Textarea';
 export * from './TextShorter';
 export * from './Tooltip';

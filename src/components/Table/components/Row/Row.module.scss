@@ -1,0 +1,36 @@
+.wrapper {
+  display: contents;
+
+  &:first-child, &:nth-child(2n + 1) {
+    --cell-background-color: var(--color-bg-primary);
+  }
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      --cell-background-color: var(--color-hover-primary);
+    }
+
+    &:active {
+      --cell-background-color: var(--color-active-primary);
+    }
+  }
+}
+
+.chevron-icon {
+  transform: rotate(-90deg);
+  transition: transform .3s ease;
+
+  &.isOpened {
+    transform: rotate(0deg);
+  }
+}
+
+.dropdown {
+  display: none;
+
+  &.isOpened {
+    display: contents;
+  }
+}

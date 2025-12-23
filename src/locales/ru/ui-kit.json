@@ -2,5 +2,10 @@
   "noOptions": "Нет опций",
   "resetAll": "Сбросить все",
   "search": "Поиск",
-  "selectAll": "Выбрать все"
+  "selectAll": "Выбрать все",
+  "pagination": {
+    "itemsOnPage": "Элементов на странице:",
+    "ofPages": "из страниц:",
+    "currentItems": "Показано {{totalItems}} элементов с {{start}} по {{end}}"
+  }
 }
