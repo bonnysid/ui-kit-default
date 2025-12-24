@@ -57,3 +57,5 @@ export type TableColumnType<D> =
   | CustomColumnType<D>;
 
 export type RowKeyFn<D> = (item: D) => string;
+
+export type TableDataItem<D> = D & { children?: D[] };

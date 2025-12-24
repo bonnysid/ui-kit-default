@@ -3,6 +3,8 @@
   "resetAll": "Сбросить все",
   "search": "Поиск",
   "selectAll": "Выбрать все",
+  "NoDate": "Нет данных",
+  "LoadingData": "Данные загружаются...",
   "pagination": {
     "itemsOnPage": "Элементов на странице:",
     "ofPages": "из страниц:",

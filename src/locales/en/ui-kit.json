@@ -3,6 +3,8 @@
   "resetAll": "Reset all",
   "search": "Search",
   "selectAll": "Select all",
+  "NoData": "No data",
+  "LoadingData": "Loading data...",
   "pagination": {
     "itemsOnPage": "Items on page:",
     "ofPages": "of pages:",

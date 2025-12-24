@@ -1,5 +1,5 @@
 import { MouseEvent, memo, useCallback, useMemo } from 'react';
-import { Button, ButtonSizes, ButtonVariants, Icon } from '@/components';
+import { Button, ButtonSizes, ButtonVariants, Icon, TableDataItem } from '@/components';
 import { useOpenState } from '@/hooks';
 import { bindStyles } from '@/utils';
 import { ColumnFixedVariants, RowKeyFn, Sort, TableColumnType } from '../../types';
@@ -37,7 +37,7 @@ const CELL_GAP = 8;
 const SUM_CONTROL_WIDTH = ARROW_WIDTH + CELL_GAP;
 
 // Типизация компонента с memo
-const RowComponent = <D extends { children?: D[] }>({
+const RowComponent = <D,>({
   className,
   onRowClick,
   item,
@@ -54,7 +54,7 @@ const RowComponent = <D extends { children?: D[] }>({
   rowIndex,
 }: Props<D>) => {
   const { isOpen, toggle } = useOpenState();
-  const hasChildren = Boolean(item?.children?.length);
+  const hasChildren = Boolean((item as TableDataItem<D>)?.children?.length);
 
   const currentKey = useMemo(() => {
     const key = item ? rowKey(item) : '';
@@ -67,13 +67,15 @@ const RowComponent = <D extends { children?: D[] }>({
       return null;
     }
 
-    const hasChildrenInChildren = item?.children?.some((child) => Boolean(child.children?.length));
+    const hasChildrenInChildren = (item as TableDataItem<D>)?.children?.some((child) =>
+      Boolean((child as TableDataItem<D>).children?.length),
+    );
 
     const rowKeyChildren: RowKeyFn<D> = (row: D) => {
       return `${currentKey}_${rowKey(row)}`;
     };
 
-    return item?.children?.map((child) => {
+    return (item as TableDataItem<D>)?.children?.map((child) => {
       return (
         <Row<D>
           key={rowKeyChildren(child)}
@@ -88,7 +90,16 @@ const RowComponent = <D extends { children?: D[] }>({
         />
       );
     });
-  }, [columns, onRowClick, item?.children, isOpen, level, hasScroll, rowKey, hasChildren]);
+  }, [
+    columns,
+    onRowClick,
+    (item as TableDataItem<D>)?.children,
+    isOpen,
+    level,
+    hasScroll,
+    rowKey,
+    hasChildren,
+  ]);
 
   const handleClickButton = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
