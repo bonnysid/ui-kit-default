@@ -1,5 +1,5 @@
-export const formatNumber = (n: number, digits = 2): string =>
+export const formatNumber = (n: number | string, digits = 2): string =>
   new Intl.NumberFormat('en-US', {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
-  }).format(n);
+  }).format(Number(n));
