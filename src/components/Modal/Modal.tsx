@@ -8,6 +8,7 @@ export type ModalSharedProps = {
 };
 
 export type ModalProps = ModalSharedProps & {
+  className?: string;
   header?: ReactNode;
   children?: ReactNode;
   footer?: ReactNode;
@@ -15,10 +16,10 @@ export type ModalProps = ModalSharedProps & {
 
 const cx = bindStyles(styles);
 
-export const Modal: FC<ModalProps> = ({ onClose, footer, header, children }) => {
+export const Modal: FC<ModalProps> = ({ className, onClose, footer, header, children }) => {
   return (
     <Portal id="modal-root">
-      <div className={cx('modal-wrapper')}>
+      <div className={cx(className, 'modal-wrapper')}>
         <div className={cx('overlay')} onClick={onClose}></div>
 
         <div className={cx('modal')}>
