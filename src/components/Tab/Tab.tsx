@@ -13,7 +13,7 @@ export enum TabSize {
 
 export type TabType<T> = {
   value: T;
-  label: string;
+  label?: string;
   count?: number;
   disabled?: boolean;
   onClick?: () => void;

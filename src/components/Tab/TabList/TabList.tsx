@@ -5,15 +5,22 @@ import styles from './TabList.module.scss';
 const cx = bindStyles(styles);
 
 export type TabListProps<T> = {
+  className?: string;
   tabs: TabType<T>[];
   value: T;
   onChange: (value: T, tab: TabType<T>) => void;
   size?: TabSize;
 };
 
-export const TabList = <T,>({ tabs, size = TabSize.LARGE, value, onChange }: TabListProps<T>) => {
+export const TabList = <T,>({
+  className,
+  tabs,
+  size = TabSize.LARGE,
+  value,
+  onChange,
+}: TabListProps<T>) => {
   return (
-    <div className={cx('tab-list', size)}>
+    <div className={cx(className, 'tab-list', size)}>
       {tabs.map((tab) => (
         <Tab
           key={tab.label}
