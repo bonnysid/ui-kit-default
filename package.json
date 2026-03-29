@@ -1,7 +1,7 @@
 {
   "name": "@devbonnysid/ui-kit-default",
   "private": false,
-  "version": "1.6.5",
+  "version": "1.6.6",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
@@ -39,6 +39,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "generate:icons": "npx tsx ./src/scripts/generateIconTypes.ts",
+    "generate:design-system": "npx tsx ./src/scripts/generateDesignSystemMetadata.ts",
+    "generate": "npm run generate:icons && npm run generate:design-system",
     "i18n:extract": "i18next-cli extract",
     "i18n:types": "i18next-cli types",
     "i18n:status": "i18next-cli status",
@@ -80,6 +82,7 @@
     "vite": "^7.0.4",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^4.0.3",
-    "vite-plugin-dts": "^4.5.4"
+    "vite-plugin-dts": "^4.5.4",
+    "tsx": "^4.19.2"
   }
 }
