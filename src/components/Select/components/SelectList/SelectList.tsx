@@ -1,5 +1,4 @@
 import { KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Checkbox,
   CheckboxCaptionPosition,
@@ -12,7 +11,7 @@ import {
 } from '@/components';
 import { SelectOption } from '@/components/Select/types';
 import { useUIKitTranslation } from '@/hooks';
-import { UI_KIT_NS } from '@/i18n';
+
 import { bindStyles } from '@/utils';
 import { SelectOptionItem, SelectOptionVariant } from '../SelectOptionItem';
 import styles from './SelectList.module.scss';
@@ -23,6 +22,7 @@ export type SelectListSharedProps<T> = {
   isWithSelectAll?: boolean;
   isWithSearch?: boolean;
   options?: SelectOption<T>[];
+  dropdownWidth?: string | number;
 };
 
 export type SelectListProps<T> = SelectListSharedProps<T> &
@@ -48,6 +48,7 @@ export const SelectList = <T,>({
   isWithSearch,
   onSelectAll,
   onClose,
+  dropdownWidth,
   gap = 0,
   placementSide,
   placementAlignment,
@@ -140,6 +141,7 @@ export const SelectList = <T,>({
       className={cx('select-list')}
       referenceRef={referenceRef}
       gap={gap}
+      width={dropdownWidth}
       placementAlignment={placementAlignment}
       placementSide={placementSide}
       onClose={onClose}

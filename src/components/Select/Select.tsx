@@ -55,6 +55,7 @@ export type SelectProps<T = string> = Partial<CaptionProps> &
     isLoading?: boolean;
     isCloseOnSelect?: boolean;
     isClearable?: boolean;
+    width?: string | number;
   };
 
 const cx = bindStyles(styles);
@@ -74,12 +75,14 @@ export const Select = <T,>({
   onChange,
   searchPlaceholder,
   options,
+  dropdownWidth,
   isWithSelectAll,
   isWithSearch,
   isCloseOnSelect = true,
   isClearable,
   isMulti,
   disabled,
+  width,
 }: SelectProps<T>) => {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const controls = useOpenState();
@@ -171,7 +174,7 @@ export const Select = <T,>({
   };
 
   return (
-    <div className={cx(className, 'select', size)}>
+    <div className={cx(className, 'select', size)} style={{ width }}>
       {caption && <Caption caption={caption} hint={hint} />}
       <div className={cx('select-control-wrapper')}>
         <button
@@ -213,6 +216,7 @@ export const Select = <T,>({
             referenceRef={triggerRef}
             onClose={controls.close}
             options={options}
+            dropdownWidth={dropdownWidth}
             disabled={isDisabled}
             onClickOption={onClickOption}
             value={value}

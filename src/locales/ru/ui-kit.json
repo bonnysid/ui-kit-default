@@ -7,7 +7,8 @@
   "LoadingData": "Данные загружаются...",
   "pagination": {
     "itemsOnPage": "Элементов на странице:",
-    "ofPages": "из страниц:",
-    "currentItems": "Показано {{totalItems}} элементов с {{start}} по {{end}}"
+    "ofPages": "Cтраница:",
+    "currentItems": "Показано с {{start}} по {{end}}",
+    "totalPagesInfo": "{{current}} из {{total}}"
   }
 }

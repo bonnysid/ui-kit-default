@@ -5,5 +5,6 @@ export * from './useMask';
 export * from './useOpenState';
 export * from './usePersistedState';
 export * from './usePolling';
+export * from './useResizeObserver';
 export * from './useTheme';
 export * from './useUIKitTranslation';

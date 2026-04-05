@@ -8,6 +8,7 @@
   "pagination": {
     "itemsOnPage": "Items on page:",
     "ofPages": "of pages:",
-    "currentItems": "Showing {{totalItems}} items from {{start}} to {{end}}"
+    "currentItems": "Showing from {{start}} to {{end}}",
+    "totalPagesInfo": "{{current}} of {{total}}"
   }
 }

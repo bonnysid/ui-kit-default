@@ -5,9 +5,10 @@ interface Resources {
     "NoData": "No data",
     "noOptions": "No options",
     "pagination": {
-      "currentItems": "Showing {{totalItems}} items from {{start}} to {{end}}",
+      "currentItems": "Showing from {{start}} to {{end}}",
       "itemsOnPage": "Items on page:",
-      "ofPages": "of pages:"
+      "ofPages": "of pages:",
+      "totalPagesInfo": "{{current}} of {{total}}"
     },
     "resetAll": "Reset all",
     "search": "Search",
