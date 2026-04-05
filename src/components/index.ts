@@ -13,6 +13,7 @@ export * from './Plug';
 export * from './Popover';
 export * from './Portal';
 export * from './Select';
+export * from './Skeleton';
 export * from './Tab';
 export * from './Table';
 export * from './Textarea';

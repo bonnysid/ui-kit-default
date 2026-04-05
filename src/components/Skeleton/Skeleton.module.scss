@@ -1,0 +1,40 @@
+.skeleton {
+  background-color: var(--color-skeleton-bg, #f0f2f5);
+  position: relative;
+  overflow: hidden;
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.rectangle {
+    border-radius: 4px;
+  }
+
+  &.animated {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        var(--color-skeleton-shimmer, rgba(255, 255, 255, 0.08)) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: skeleton-shimmer 1.5s infinite linear;
+    }
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

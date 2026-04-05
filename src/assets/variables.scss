@@ -95,6 +95,9 @@
   --RoundingXL: 16px;
   //#endregion
 
+  --color-skeleton-bg-light: #f0f2f5;
+  --color-skeleton-shimmer-light: rgba(255, 255, 255, 0.08);
+
   //#region Shadows
 
   --shadow-primary-light: 2px 4px 16px 0px #1a20240f, 0px 0px 8px 0px #1a202405;
@@ -233,6 +236,9 @@
   --color-hover-secondary-dark: #1e2028;
   --color-active-secondary-dark: #24262f;
 
+  --color-skeleton-bg-dark: #24262f;
+  --color-skeleton-shimmer-dark: rgba(255, 255, 255, 0.05);
+
   --shadow-primary-dark: 2px 4px 28px 0px #00000014, 0px 0px 16px 0px #00000014;
   --shadow-secondary-dark: -6px 8px 16px 0px #00000033, 0px 0px 8px 0px #00000014;
   --shadow-tertiary-dark: 0px 4px 8px 0px #0000003d, 2px 0px 8px 0px #00000029;
@@ -302,6 +308,9 @@
   --color-active-tertiary: var(--color-active-tertiary-light);
   --color-hover-secondary: var(--color-hover-secondary-light);
   --color-active-secondary: var(--color-active-secondary-light);
+
+  --color-skeleton-bg: var(--color-skeleton-bg-light);
+  --color-skeleton-shimmer: var(--color-skeleton-shimmer-light);
 
   --shadow-primary: var(--shadow-primary-light);
   --shadow-secondary: var(--shadow-secondary-light);
@@ -375,6 +384,9 @@
   --color-active-tertiary: var(--color-active-tertiary-dark);
   --color-hover-secondary: var(--color-hover-secondary-dark);
   --color-active-secondary: var(--color-active-secondary-dark);
+
+  --color-skeleton-bg: var(--color-skeleton-bg-dark);
+  --color-skeleton-shimmer: var(--color-skeleton-shimmer-dark);
 
   --shadow-primary: var(--shadow-primary-dark);
   --shadow-secondary: var(--shadow-secondary-dark);
