@@ -1,20 +1,29 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export type UsePaginationProps = {
   initialPage?: number;
   initialPageSize?: number;
-  totalItems: number;
+  totalItems?: number;
 };
 
 export const usePagination = ({
-  totalItems,
+  totalItems: totalItemsProp = 0,
   initialPageSize = 15,
   initialPage = 1,
 }: UsePaginationProps) => {
   const [page, setPage] = useState(initialPage);
   const [pageSize, setPageSize] = useState(initialPageSize);
+  const [totalItems, setTotalItems] = useState(totalItemsProp);
 
   const totalPages = useMemo(() => Math.ceil(totalItems / pageSize), [totalItems, pageSize]);
+
+  useEffect(() => {
+    setTotalItems(totalItemsProp);
+  }, [totalItemsProp]);
+
+  useEffect(() => {
+    setPage((prev) => (prev > totalPages && totalPages > 0 ? totalPages : prev));
+  }, [totalPages]);
 
   const hasPrevious = useMemo(() => page > 1, [page]);
 
@@ -59,6 +68,7 @@ export const usePagination = ({
       onChangePageSize,
       onNextPage,
       onPrevPage,
+      setTotalItems,
     };
   }, [
     page,
@@ -71,6 +81,7 @@ export const usePagination = ({
     onChangePageSize,
     onNextPage,
     onPrevPage,
+    setTotalItems,
   ]);
 };
 

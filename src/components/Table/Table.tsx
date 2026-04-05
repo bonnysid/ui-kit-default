@@ -63,7 +63,7 @@ const TableComponent = <D,>({
   const [hasScroll, setHasScroll] = useState(false);
   const showLoader = isFetching || isLoading;
   const showEmpty =
-    (isEmpty ?? (!data?.length || (pagination && !pagination.totalItems))) && !showLoader;
+    (isEmpty ?? (!data?.length || (pagination && pagination.totalItems === 0))) && !showLoader;
 
   const disabled = isFetching || isLoading || isEmpty;
   const { t } = useUIKitTranslation();
