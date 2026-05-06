@@ -1,8 +1,13 @@
-export const formatNumber = (n: number | string, digits = 2): string => {
+export const formatNumber = (
+  n: number | string,
+  digits = 2,
+  locales: Intl.LocalesArgument = 'ru-RU',
+): string => {
   const nStr = String(n);
-  const trunkedNum = nStr.slice(0, nStr.indexOf('.') + digits + 1);
+  const dotIndex = nStr.indexOf('.');
+  const trunkedNum = dotIndex !== -1 ? nStr.slice(0, dotIndex + digits + 1) : nStr;
 
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat(locales, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   }).format(Number(trunkedNum));
