@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useCallback, useMemo } from 'react';
-import { Table, TableProps } from './Table';
 import { usePagination } from './hooks';
+import { Table, TableProps } from './Table';
 import { TableColumnType } from './types';
 
 const meta: Meta<typeof Table> = {
@@ -148,5 +148,28 @@ export const Responsive: Story = {
         />
       </div>
     );
+  },
+};
+
+export const Loading: Story = {
+  args: {},
+  render: (args: TableProps<unknown>) => {
+    const rowKey = useCallback((it: TestData) => String(it.id), []);
+
+    const columns = useMemo<TableColumnType<TestData>[]>(() => {
+      return [
+        {
+          key: 'id',
+        },
+        {
+          key: 'name',
+        },
+        {
+          key: 'age',
+        },
+      ];
+    }, []);
+
+    return <Table columns={columns} data={data} rowKey={rowKey} isLoading />;
   },
 };

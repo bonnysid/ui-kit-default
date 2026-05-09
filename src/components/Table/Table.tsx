@@ -1,4 +1,5 @@
 import { memo, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Skeleton } from '@/components';
 import { useUIKitTranslation } from '@/hooks';
 import { bindStyles } from '@/utils';
 import { Plug } from '../Plug';
@@ -19,6 +20,8 @@ export type TableProps<D> = {
   loadingPlug?: ReactNode;
   loadingPlugTitle?: string;
   loadingPlugText?: string;
+  skeletonHeights?: number;
+  skeletonBorderRadius?: number;
 
   pagination?: UsePaginationReturn;
   sort?: UseSortReturn<D>;
@@ -50,6 +53,8 @@ const TableComponent = <D,>({
   loadingPlug,
   loadingPlugTitle,
   loadingPlugText,
+  skeletonHeights = 41,
+  skeletonBorderRadius = 4,
 
   sort,
   pagination,
@@ -165,12 +170,22 @@ const TableComponent = <D,>({
       return loadingPlug;
     }
 
+    const skeletonsCount = pagination?.pageSize ?? 10;
+
     return (
-      <Plug
-        title={loadingPlugTitle ?? t('LoadingData')}
-        text={loadingPlugText}
-        className={cx('table-plug')}
-      />
+      <div className={cx('skeletons')}>
+        {Array.from<number>({ length: skeletonsCount })
+          .fill(1)
+          .map((it, i) => it + i)
+          .map((item) => (
+            <Skeleton
+              key={item}
+              height={skeletonHeights}
+              width="100%"
+              borderRadius={skeletonBorderRadius}
+            />
+          ))}
+      </div>
     );
   }, [loadingPlug, loadingPlugTitle, t, loadingPlugText]);
 

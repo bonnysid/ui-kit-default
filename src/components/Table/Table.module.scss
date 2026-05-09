@@ -60,3 +60,11 @@
     grid-column: 1 / -1;
   }
 }
+
+.skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0;
+  grid-column: 1 / -1;
+}
