@@ -2,8 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
 import { Button } from '@/components';
 import { useOpenState } from '@/hooks';
-import { PlacementAlignment, PlacementSide } from '@/utils';
 import { Popover } from './Popover';
+
+const PLACEMENTS = [
+  'top', 'top-start', 'top-end',
+  'right', 'right-start', 'right-end',
+  'bottom', 'bottom-start', 'bottom-end',
+  'left', 'left-start', 'left-end',
+] as const;
 
 const meta = {
   title: 'UI-Kit/Popover',
@@ -13,12 +19,8 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    placementAlignment: {
-      options: Object.values(PlacementAlignment),
-      control: { type: 'select' },
-    },
-    placementSide: {
-      options: Object.values(PlacementSide),
+    placement: {
+      options: PLACEMENTS,
       control: { type: 'select' },
     },
   },

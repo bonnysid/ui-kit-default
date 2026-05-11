@@ -6,7 +6,7 @@ import styles from './Tooltip.module.scss';
 
 const cn = bindStyles(styles);
 
-export type TooltipProps = Pick<PopoverProps, 'gap' | 'placementAlignment' | 'placementSide'> & {
+export type TooltipProps = Pick<PopoverProps, 'gap' | 'placement'> & {
   id?: string;
   text: ReactNode;
   children: ReactNode;
@@ -22,8 +22,7 @@ export const Tooltip: FC<TooltipProps> = ({
   className,
 
   gap,
-  placementSide,
-  placementAlignment,
+  placement,
 }) => {
   const referenceRef = useRef<HTMLDivElement>(null);
   const popoverControls = useOpenState();
@@ -51,8 +50,7 @@ export const Tooltip: FC<TooltipProps> = ({
         <Popover
           className={cn('tooltip')}
           portalId={id}
-          placementAlignment={placementAlignment}
-          placementSide={placementSide}
+          placement={placement}
           referenceRef={referenceRef}
           closeOnBlur
           closeOnResize

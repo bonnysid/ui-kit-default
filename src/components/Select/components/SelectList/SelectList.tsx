@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { KeyboardEvent, RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Checkbox,
   CheckboxCaptionPosition,
@@ -27,6 +27,8 @@ export type SelectListSharedProps<T> = {
 
 export type SelectListProps<T> = SelectListSharedProps<T> &
   PopoverSharedProps & {
+    referenceRef: RefObject<HTMLElement | null>;
+    gap?: number;
     onClickOption: (option: SelectOption<T>) => void;
     disabled?: boolean;
     onSelectAll?: (value?: SelectOption<T>[]) => void;
@@ -50,8 +52,7 @@ export const SelectList = <T,>({
   onClose,
   dropdownWidth,
   gap = 0,
-  placementSide,
-  placementAlignment,
+  placement,
   referenceRef,
 }: SelectListProps<T>) => {
   const [search, setSearch] = useState('');
@@ -142,8 +143,7 @@ export const SelectList = <T,>({
       referenceRef={referenceRef}
       gap={gap}
       width={dropdownWidth}
-      placementAlignment={placementAlignment}
-      placementSide={placementSide}
+      placement={placement}
       onClose={onClose}
     >
       {showHeader && (

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Icon, Tooltip } from '@/components';
-import { bindStyles, PlacementSide } from '@/utils';
+import { bindStyles } from '@/utils';
 import styles from './Caption.module.scss';
 
 export type CaptionProps = {
@@ -15,7 +15,7 @@ export const Caption = ({ caption, hint }: CaptionProps) => {
     <div className={cx('caption')}>
       {caption}
       {hint && (
-        <Tooltip text={hint} placementSide={PlacementSide.TOP}>
+        <Tooltip text={hint} placement="top">
           <Icon type="circle-help" className={cx('icon', 'hint')} />
         </Tooltip>
       )}
