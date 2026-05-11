@@ -1,4 +1,14 @@
 import {
+  arrow,
+  autoUpdate,
+  flip,
+  offset,
+  Padding,
+  Placement,
+  shift,
+  useFloating,
+} from '@floating-ui/react';
+import {
   ComponentProps,
   CSSProperties,
   createContext,
@@ -6,6 +16,7 @@ import {
   FocusEvent,
   MouseEvent,
   PropsWithChildren,
+  RefObject,
   useCallback,
   useContext,
   useEffect,
@@ -13,18 +24,19 @@ import {
   useRef,
 } from 'react';
 import { v4 } from 'uuid';
-import { UseFloatingProps, useFloating } from '@/hooks';
+
 import { bindStyles } from '@/utils';
+
 import { Portal } from '../Portal';
 import styles from './Popover.module.scss';
 
 const cn = bindStyles(styles);
 
-export type PopoverSharedProps = Omit<
-  UseFloatingProps,
-  'popoverRef' | 'computeOnResize' | 'computeOnScroll'
-> & {
-  onClose: () => void;
+export type PopoverSharedProps = {
+  onClose?: () => void;
+  withArrow?: boolean;
+  shiftPadding?: Padding;
+  placement?: Placement;
 };
 
 export type PopoverProps = ComponentProps<'div'> &
@@ -33,11 +45,12 @@ export type PopoverProps = ComponentProps<'div'> &
     activeIndex?: number;
     width?: number | string;
     className?: string;
-    onClose: () => void;
     maxMenuHeight?: CSSProperties['maxHeight'];
     portalId?: string;
     mouseLeaveDelay?: number;
     scrollGraceDelay?: number;
+    gap?: number;
+    referenceRef: RefObject<HTMLElement | null>;
 
     closeOnScroll?: boolean;
     closeOnMouseLeave?: boolean;
@@ -58,7 +71,6 @@ export const Popover: FC<PopoverProps> = ({
   maxMenuHeight = 320,
   scrollGraceDelay = 180,
   className,
-  gap,
   closeOnBlur = false,
   portalId = 'popup-root',
   closeOnMouseLeave = false,
@@ -66,28 +78,44 @@ export const Popover: FC<PopoverProps> = ({
   onBlur,
   onClick,
   onMouseDown,
+  gap = 8,
+  shiftPadding = 8,
 
-  isPortal = true,
   referenceRef,
-  placementSide,
-  placementAlignment,
+  placement = 'bottom-start',
   closeOnResize,
   closeOnScroll,
   closeOnClickOutside = true,
+  withArrow,
 
   ...restProps
 }) => {
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const { computed } = useFloating({
-    computeOnResize: !closeOnResize,
-    computeOnScroll: !closeOnScroll,
-    popoverRef,
-    referenceRef,
-    placementSide,
-    placementAlignment,
-    gap,
-    isPortal,
+  const popoverRef = useRef<HTMLDivElement | null>(null);
+  const arrowRef = useRef<HTMLDivElement | null>(null);
+  const {
+    refs,
+    floatingStyles,
+    middlewareData,
+    placement: finalPlacement,
+  } = useFloating({
+    placement,
+    middleware: [
+      offset(gap),
+      flip({ fallbackPlacements: ['top-start'] }),
+      shift({ padding: shiftPadding }),
+      arrow({ element: arrowRef }),
+    ],
+    whileElementsMounted: autoUpdate,
+    open: true,
   });
+
+  const staticSide = {
+    top: 'bottom',
+    right: 'left',
+    bottom: 'top',
+    left: 'right',
+  }[finalPlacement.split('-')[0]] as string;
+
   const parentGroupId = useContext(DropdownGroupContext);
   const groupIdRef = useRef<string>(parentGroupId ?? genGroupId());
   const groupId = groupIdRef.current;
@@ -121,7 +149,7 @@ export const Popover: FC<PopoverProps> = ({
     if (!closeOnBlur) return;
     const next = e.relatedTarget as Node | null;
     if (isSameGroup(next)) return;
-    onClose();
+    onClose?.();
 
     onBlur?.(e);
   };
@@ -139,7 +167,7 @@ export const Popover: FC<PopoverProps> = ({
           !hoverStateRef.current.dropdown &&
           !isScrollingRef.current
         ) {
-          onClose();
+          onClose?.();
         }
       }, mouseLeaveDelay);
     }
@@ -148,13 +176,13 @@ export const Popover: FC<PopoverProps> = ({
   useLayoutEffect(() => {
     const onResize = () => {
       if (closeOnResize) {
-        onClose();
+        onClose?.();
       }
     };
 
     const onScroll = () => {
       if (closeOnScroll) {
-        onClose();
+        onClose?.();
       }
     };
 
@@ -181,7 +209,7 @@ export const Popover: FC<PopoverProps> = ({
 
     const onAnchorLeave = (e: PointerEvent) => {
       const next = e.relatedTarget as Node | null;
-      if (isSameGroup(next) || reference.contains(next)) return;
+      if (isSameGroup(next) || reference.contains(next) || !onClose) return;
       hoverTimerRef.current = window.setTimeout(onClose, mouseLeaveDelay);
     };
 
@@ -192,7 +220,7 @@ export const Popover: FC<PopoverProps> = ({
 
     const onDropdownLeave = (e: PointerEvent) => {
       const next = e.relatedTarget as Node | null;
-      if (isSameGroup(next)) return;
+      if (isSameGroup(next) || !onClose) return;
       hoverTimerRef.current = window.setTimeout(onClose, mouseLeaveDelay);
     };
 
@@ -229,7 +257,7 @@ export const Popover: FC<PopoverProps> = ({
       }
 
       const target = event.target as Node | null;
-      if (!isSameGroup(target) && !referenceRef.current?.contains(target)) onClose();
+      if (!isSameGroup(target) && !referenceRef.current?.contains(target)) onClose?.();
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -244,12 +272,26 @@ export const Popover: FC<PopoverProps> = ({
 
       const next = (e.relatedTarget as Node | null) ?? (document.activeElement as Node | null);
       if (isSameGroup(next)) return;
-      onClose();
+      onClose?.();
     };
 
     document.addEventListener('focusout', onFocusOut, true);
     return () => document.removeEventListener('focusout', onFocusOut, true);
   }, [closeOnBlur, isSameGroup, onClose]);
+
+  useLayoutEffect(() => {
+    if (referenceRef.current) {
+      refs.setReference(referenceRef.current);
+    }
+  }, [referenceRef, refs]);
+
+  const setPopoverRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      popoverRef.current = node;
+      refs.setFloating(node);
+    },
+    [refs],
+  );
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -261,41 +303,50 @@ export const Popover: FC<PopoverProps> = ({
     onClick?.(e);
   };
 
+  const { x, y } = middlewareData.arrow ?? {};
+
   const content = (
     <div
       data-dd-root
       data-dd-group={groupId}
       className={cn(className, 'popover')}
-      ref={popoverRef}
+      ref={setPopoverRef}
       tabIndex={-1}
       onMouseDown={handleMouseDown}
       onClick={handleClick}
       onBlur={handleBlur}
       {...restProps}
       style={{
-        ...restProps.style,
-        top: computed?.y || 0,
-        left: computed?.x || 0,
-        visibility: computed ? 'visible' : 'hidden',
+        ...floatingStyles,
         width: width ?? referenceRef.current?.offsetWidth,
         maxHeight: maxMenuHeight,
       }}
     >
       {children}
+
+      {withArrow && (
+        <div
+          ref={arrowRef}
+          className={cn('arrow', finalPlacement.split('-')[0])}
+          style={{
+            left: x != null ? `${x}px` : '',
+            top: y != null ? `${y}px` : '',
+            right: '',
+            bottom: '',
+            [staticSide]: '-4px',
+          }}
+        ></div>
+      )}
     </div>
   );
 
   if (parentGroupId) {
-    if (isPortal) {
-      return <Portal id={portalId}>{content}</Portal>;
-    }
-
-    return content;
+    return <Portal id={portalId}>{content}</Portal>;
   }
 
   return (
     <DropdownGroupContext.Provider value={groupId}>
-      {isPortal ? <Portal id={portalId}>{content}</Portal> : content}
+      <Portal id={portalId}>{content}</Portal>
     </DropdownGroupContext.Provider>
   );
 };
