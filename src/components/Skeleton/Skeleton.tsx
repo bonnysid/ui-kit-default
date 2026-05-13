@@ -12,8 +12,12 @@ export enum SkeletonVariants {
 
 export type SkeletonProps = {
   variant?: SkeletonVariants;
-  width?: string | number;
-  height?: string | number;
+  width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
+  minWidth?: CSSProperties['minWidth'];
+  maxWidth?: CSSProperties['maxWidth'];
+  maxHeight?: CSSProperties['maxHeight'];
+  minHeight?: CSSProperties['minHeight'];
   className?: string;
   borderRadius?: string | number;
   children?: ReactNode;
@@ -23,6 +27,10 @@ export type SkeletonProps = {
 export const Skeleton: FC<SkeletonProps> = ({
   variant = SkeletonVariants.RECTANGLE,
   width,
+  minHeight,
+  maxHeight,
+  minWidth,
+  maxWidth,
   height,
   className,
   borderRadius,
@@ -33,6 +41,10 @@ export const Skeleton: FC<SkeletonProps> = ({
     width,
     height,
     borderRadius,
+    maxHeight,
+    minWidth,
+    minHeight,
+    maxWidth,
   };
 
   return (
