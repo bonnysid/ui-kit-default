@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getTheme } from '@/utils';
-import { usePersistedState } from './usePersistedState';
+import { usePersistedState } from './use-persisted-state';
 
 export type UseThemeProps = {
   initialTheme?: string;
