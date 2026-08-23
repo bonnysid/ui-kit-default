@@ -13,6 +13,7 @@ export type UsePersistedStateOptions<T> = {
   key: string;
   initialValue: T;
   storageType?: StorageType;
+  prefix?: string;
 };
 
 export type UsePersistedStateResult<T> = readonly [

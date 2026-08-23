@@ -400,6 +400,79 @@ describe('PersistedStore', () => {
     });
   });
 
+  describe('prefix', () => {
+    test('сохраняет данные по ключу с префиксом', () => {
+      const store = new PersistedStore(
+        'counter',
+        0,
+        new BrowserStorage('localStorage', { prefix: 'custom' }),
+      );
+
+      const unsubscribe = store.subscribe(jest.fn());
+
+      store.setState(42);
+
+      expect(window.localStorage.getItem('custom_counter')).toBe('42');
+
+      expect(window.localStorage.getItem('counter')).toBeNull();
+
+      unsubscribe();
+    });
+
+    test('восстанавливает persisted значение из ключа с префиксом', () => {
+      window.localStorage.setItem('custom_counter', '42');
+
+      const store = new PersistedStore(
+        'counter',
+        0,
+        new BrowserStorage('localStorage', { prefix: 'custom' }),
+      );
+
+      expect(store.getSnapshot()).toBe(42);
+    });
+
+    test('не читает значение без префикса', () => {
+      window.localStorage.setItem('counter', '42');
+
+      const store = new PersistedStore(
+        'counter',
+        0,
+        new BrowserStorage('localStorage', { prefix: 'custom' }),
+      );
+
+      expect(store.getSnapshot()).toBe(0);
+    });
+
+    test('не синхронизирует stores с одинаковым key, но разными prefix', () => {
+      const customStore = new PersistedStore(
+        'counter',
+        0,
+        new BrowserStorage('localStorage', { prefix: 'custom' }),
+      );
+
+      const plainStore = new PersistedStore('counter', 0, new BrowserStorage('localStorage'));
+
+      const plainListener = jest.fn();
+
+      const unsubscribeCustom = customStore.subscribe(jest.fn());
+
+      const unsubscribePlain = plainStore.subscribe(plainListener);
+
+      plainListener.mockClear();
+
+      customStore.setState(42);
+
+      expect(customStore.getSnapshot()).toBe(42);
+
+      expect(plainStore.getSnapshot()).toBe(0);
+
+      expect(plainListener).not.toHaveBeenCalled();
+
+      unsubscribeCustom();
+      unsubscribePlain();
+    });
+  });
+
   describe('native localStorage events', () => {
     test('обновляет snapshot при изменении значения в другой вкладке', () => {
       const store = new PersistedStore('counter', 0, new BrowserStorage('localStorage'));

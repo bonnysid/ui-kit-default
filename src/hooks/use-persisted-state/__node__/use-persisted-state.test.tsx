@@ -1,9 +1,7 @@
-import { type PropsWithChildren, StrictMode } from 'react';
-
 import { act, renderHook } from '@testing-library/react';
-
+import { type PropsWithChildren, StrictMode } from 'react';
+import { KEY_SEPARATOR } from '@/services/storage-utils';
 import { usePersistedState } from '../use-persisted-state';
-
 import { getRenderedHook } from './helpers';
 
 describe('usePersistedState', () => {
@@ -138,7 +136,7 @@ describe('usePersistedState', () => {
             oldValue: '0',
             newValue: '42',
             storageArea: window.localStorage,
-          })
+          }),
         );
       });
 
@@ -159,7 +157,7 @@ describe('usePersistedState', () => {
             oldValue: '42',
             newValue: null,
             storageArea: window.localStorage,
-          })
+          }),
         );
       });
 
@@ -174,12 +172,12 @@ describe('usePersistedState', () => {
       window.localStorage.setItem('second', '20');
 
       const { result, rerender } = renderHook(
-        ({ storageKey }) => usePersistedState({ key: storageKey, initialValue: 0 }),
+        ({ storageKey }) => usePersistedState({ key: storageKey, initialValue: 0, prefix: '' }),
         {
           initialProps: {
             storageKey: 'first',
           },
-        }
+        },
       );
 
       expect(result.current[0]).toBe(10);
@@ -198,12 +196,12 @@ describe('usePersistedState', () => {
 
       const { result, rerender } = renderHook(
         ({ storageType }: { storageType: 'localStorage' | 'sessionStorage' }) =>
-          usePersistedState({ key: 'counter', initialValue: 0, storageType }),
+          usePersistedState({ key: 'counter', initialValue: 0, storageType, prefix: '' }),
         {
           initialProps: {
             storageType: 'localStorage',
           },
-        }
+        },
       );
 
       expect(result.current[0]).toBe(10);
@@ -222,7 +220,7 @@ describe('usePersistedState', () => {
           initialProps: {
             initialValue: 5,
           },
-        }
+        },
       );
 
       act(() => {
@@ -244,6 +242,93 @@ describe('usePersistedState', () => {
        * в момент создания store.
        */
       expect(result.current[0]).toBe(5);
+    });
+
+    test('переключает store при изменении prefix', () => {
+      window.localStorage.setItem(`custom${KEY_SEPARATOR}counter`, '10');
+
+      window.localStorage.setItem(`second${KEY_SEPARATOR}counter`, '20');
+
+      const { result, rerender } = renderHook(
+        ({ prefix }) => usePersistedState({ key: 'counter', initialValue: 0, prefix }),
+        {
+          initialProps: {
+            prefix: 'custom',
+          },
+        },
+      );
+
+      expect(result.current[0]).toBe(10);
+
+      rerender({
+        prefix: 'second',
+      });
+
+      expect(result.current[0]).toBe(20);
+    });
+  });
+
+  describe('prefix', () => {
+    test('сохраняет состояние под ключом с префиксом', () => {
+      const { result } = renderHook(() =>
+        usePersistedState({ key: 'counter', initialValue: 0, prefix: 'custom' }),
+      );
+
+      act(() => {
+        result.current[1](42);
+      });
+
+      expect(window.localStorage.getItem(`custom${KEY_SEPARATOR}counter`)).toBe('42');
+
+      expect(window.localStorage.getItem('counter')).toBeNull();
+    });
+
+    test('восстанавливает persisted значение, записанное под префиксом', () => {
+      window.localStorage.setItem(`custom${KEY_SEPARATOR}counter`, '42');
+
+      const { result } = renderHook(() =>
+        usePersistedState({ key: 'counter', initialValue: 0, prefix: 'custom' }),
+      );
+
+      expect(result.current[0]).toBe(42);
+    });
+
+    test('не читает значение без префикса при заданном prefix', () => {
+      window.localStorage.setItem('counter', '42');
+
+      const { result } = renderHook(() =>
+        usePersistedState({ key: 'counter', initialValue: 0, prefix: 'custom' }),
+      );
+
+      expect(result.current[0]).toBe(0);
+    });
+
+    test('не синхронизирует consumers с одинаковым key, но разными prefix', () => {
+      const custom = getRenderedHook('counter', 0, 'localStorage', 'custom');
+
+      const defaulted = renderHook(() => usePersistedState({ key: 'counter', initialValue: 0 }));
+
+      act(() => {
+        custom.result.current[1](42);
+      });
+
+      expect(custom.result.current[0]).toBe(42);
+
+      expect(defaulted.result.current[0]).toBe(0);
+    });
+
+    test('поддерживает пустой prefix как отсутствующий', () => {
+      const { result } = renderHook(() =>
+        usePersistedState({ key: 'counter', initialValue: 0, prefix: '' }),
+      );
+
+      act(() => {
+        result.current[1](42);
+      });
+
+      expect(window.localStorage.getItem('counter')).toBe('42');
+
+      expect(window.localStorage.getItem(`second${KEY_SEPARATOR}counter`)).toBeNull();
     });
   });
 
@@ -273,7 +358,7 @@ describe('usePersistedState', () => {
         'settings',
         JSON.stringify({
           page: 1,
-        })
+        }),
       );
 
       const { result, rerender } = renderHook(() =>
@@ -282,7 +367,7 @@ describe('usePersistedState', () => {
           initialValue: {
             page: 0,
           },
-        })
+        }),
       );
 
       const state = result.current[0];
@@ -313,9 +398,12 @@ describe('usePersistedState', () => {
     test('корректно работает в StrictMode', () => {
       const wrapper = ({ children }: PropsWithChildren) => <StrictMode>{children}</StrictMode>;
 
-      const { result } = renderHook(() => usePersistedState({ key: 'counter', initialValue: 0 }), {
-        wrapper,
-      });
+      const { result } = renderHook(
+        () => usePersistedState({ key: 'counter', initialValue: 0, prefix: '' }),
+        {
+          wrapper,
+        },
+      );
 
       act(() => {
         result.current[1]((prev) => prev + 1);

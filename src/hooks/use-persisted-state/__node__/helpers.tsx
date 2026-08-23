@@ -6,6 +6,7 @@ export const getRenderedHook = (
   key: string = 'counter',
   initialValue = 5,
   storageType?: StorageType,
+  prefix: string = '',
 ) => {
-  return renderHook(() => usePersistedState({ key, initialValue, storageType }));
+  return renderHook(() => usePersistedState({ key, initialValue, storageType, prefix }));
 };
